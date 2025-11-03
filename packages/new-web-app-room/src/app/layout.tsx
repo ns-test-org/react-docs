@@ -13,8 +13,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Build anything from a chat",
-  description: "Turn chats into apps. Prompt. Ship. Repeat.",
+  title: "React Documentation - Learn React with Interactive Examples",
+  description: "Comprehensive React documentation with tutorials, examples, and interactive code samples. Master components, hooks, state management, and modern React patterns.",
 };
 
 export default function RootLayout({
@@ -32,3 +32,4 @@ export default function RootLayout({
     </html>
   );
 }
+

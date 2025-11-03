@@ -1,84 +1,148 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import Link from 'next/link';
+import { useState } from 'react';
 
-const slogans = [
-  "Turn chats into apps",
-  "Prompt. Ship. Repeat.",
-  "Build anything from a chat",
-  "Ideas → Apps, instantly",
-  "From zero to MVP in minutes",
-  "Your cofounder in the command line",
-  "Draft, iterate, deploy",
-  "Ship faster than you can type",
-  "Design in text, deliver in code",
-  "Dream it. Prompt it. Run it.",
-  "Chat-native app building",
-  "From prompt to product",
-  "One prompt, infinite apps",
-  "Stop scaffolding. Start shipping.",
-  "Prototype at the speed of thought",
-  "Make conversations executable"
+const quickStartTopics = [
+  { title: 'Components', description: 'Learn how to build reusable UI components', href: '/components' },
+  { title: 'Hooks', description: 'Master React hooks for state and side effects', href: '/hooks' },
+  { title: 'State Management', description: 'Handle component state effectively', href: '/state' },
+  { title: 'Event Handling', description: 'Respond to user interactions', href: '/events' },
 ];
 
-export default function Landing() {
-  const [currentIndex, setCurrentIndex] = useState(0);
-  const [isVisible, setIsVisible] = useState(true);
+const codeExample = `function Welcome({ name }) {
+  return <h1>Hello, {name}!</h1>;
+}
 
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setIsVisible(false);
-      setTimeout(() => {
-        setCurrentIndex((prev) => (prev + 1) % slogans.length);
-        setIsVisible(true);
-      }, 400);
-    }, 2800);
+function App() {
+  return (
+    <div>
+      <Welcome name="React" />
+      <Welcome name="Developer" />
+    </div>
+  );
+}`;
 
-    return () => clearInterval(interval);
-  }, []);
+export default function ReactDocsHome() {
+  const [activeExample, setActiveExample] = useState('basic');
 
   return (
-    <div className="relative h-[100dvh] w-full overflow-hidden bg-black text-white">
-      {/* Enhanced animated aurora background layers */}
-      <div className="absolute inset-0 bg-aurora-layer-1" />
-      <div className="absolute inset-0 bg-aurora-layer-2" />
-      <div className="absolute inset-0 bg-aurora-layer-3" />
-      
-      {/* Floating particles overlay */}
-      <div className="absolute inset-0 bg-particles" />
-      
-      {/* Main content - centered */}
-      <main className="relative z-10 h-full flex flex-col items-center justify-center px-6">
-        <h1 className="text-center text-[clamp(28px,6vw,64px)] font-medium tracking-tight mb-4">
-          Turn Chats into Apps
-        </h1>
-        
-        {/* Rotating slogans */}
-        <div className="mt-4 h-8 md:h-10 overflow-hidden flex items-center justify-center">
-          <span
-            className={`inline-block text-center text-[clamp(18px,3vw,32px)] font-light transition-all duration-[400ms] ease-in-out ${
-              isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-2'
-            }`}
-          >
-            {slogans[currentIndex]}
-          </span>
+    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100">
+      {/* Navigation */}
+      <nav className="bg-white shadow-sm border-b">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex justify-between items-center h-16">
+            <div className="flex items-center">
+              <div className="text-2xl font-bold text-blue-600">React Docs</div>
+            </div>
+            <div className="hidden md:flex space-x-8">
+              <Link href="/tutorial" className="text-gray-700 hover:text-blue-600 transition-colors">Tutorial</Link>
+              <Link href="/components" className="text-gray-700 hover:text-blue-600 transition-colors">Components</Link>
+              <Link href="/hooks" className="text-gray-700 hover:text-blue-600 transition-colors">Hooks</Link>
+              <Link href="/examples" className="text-gray-700 hover:text-blue-600 transition-colors">Examples</Link>
+            </div>
+          </div>
         </div>
-      </main>
-      
-      {/* Start Prompting arrow pointing left - bottom left */}
-      <div className="absolute left-6 md:left-8 bottom-[5%] z-20 flex items-center gap-3 arrow-point-left">
-        <div className="flex items-center gap-2 text-white/80 font-medium text-sm md:text-base">
-          <svg 
-            className="w-5 h-5 md:w-6 md:h-6 animate-bounce-horizontal" 
-            fill="none" 
-            viewBox="0 0 24 24" 
-            stroke="currentColor"
-          >
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
-          </svg>
-          <span>Start prompting</span>
+      </nav>
+
+      {/* Hero Section */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+        <div className="text-center">
+          <h1 className="text-5xl font-bold text-gray-900 mb-6">
+            Learn React
+          </h1>
+          <p className="text-xl text-gray-600 mb-8 max-w-3xl mx-auto">
+            A comprehensive guide to building user interfaces with React. 
+            Learn components, hooks, state management, and modern React patterns with interactive examples.
+          </p>
+          <div className="flex justify-center space-x-4">
+            <Link 
+              href="/tutorial" 
+              className="bg-blue-600 text-white px-8 py-3 rounded-lg font-semibold hover:bg-blue-700 transition-colors"
+            >
+              Start Tutorial
+            </Link>
+            <Link 
+              href="/examples" 
+              className="bg-white text-blue-600 px-8 py-3 rounded-lg font-semibold border-2 border-blue-600 hover:bg-blue-50 transition-colors"
+            >
+              View Examples
+            </Link>
+          </div>
         </div>
       </div>
+
+      {/* Quick Start Cards */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+        <h2 className="text-3xl font-bold text-gray-900 mb-8 text-center">Quick Start</h2>
+        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+          {quickStartTopics.map((topic) => (
+            <Link key={topic.title} href={topic.href}>
+              <div className="bg-white p-6 rounded-xl shadow-md hover:shadow-lg transition-shadow cursor-pointer border border-gray-200">
+                <h3 className="text-xl font-semibold text-gray-900 mb-2">{topic.title}</h3>
+                <p className="text-gray-600">{topic.description}</p>
+              </div>
+            </Link>
+          ))}
+        </div>
+      </div>
+
+      {/* Code Example Section */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+        <div className="bg-white rounded-2xl shadow-lg p-8">
+          <h2 className="text-3xl font-bold text-gray-900 mb-6 text-center">Try React Now</h2>
+          <div className="grid lg:grid-cols-2 gap-8">
+            <div>
+              <h3 className="text-xl font-semibold text-gray-900 mb-4">Your First Component</h3>
+              <pre className="bg-gray-900 text-gray-100 p-6 rounded-lg overflow-x-auto">
+                <code>{codeExample}</code>
+              </pre>
+            </div>
+            <div>
+              <h3 className="text-xl font-semibold text-gray-900 mb-4">What You'll Learn</h3>
+              <ul className="space-y-3">
+                <li className="flex items-start">
+                  <span className="text-green-500 mr-3">✓</span>
+                  <span>How to create functional components</span>
+                </li>
+                <li className="flex items-start">
+                  <span className="text-green-500 mr-3">✓</span>
+                  <span>Passing data with props</span>
+                </li>
+                <li className="flex items-start">
+                  <span className="text-green-500 mr-3">✓</span>
+                  <span>JSX syntax and expressions</span>
+                </li>
+                <li className="flex items-start">
+                  <span className="text-green-500 mr-3">✓</span>
+                  <span>Component composition</span>
+                </li>
+                <li className="flex items-start">
+                  <span className="text-green-500 mr-3">✓</span>
+                  <span>Modern React patterns</span>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Footer */}
+      <footer className="bg-gray-900 text-white py-12">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center">
+            <h3 className="text-2xl font-bold mb-4">Ready to Start Building?</h3>
+            <p className="text-gray-400 mb-6">Join thousands of developers learning React</p>
+            <Link 
+              href="/tutorial" 
+              className="bg-blue-600 text-white px-8 py-3 rounded-lg font-semibold hover:bg-blue-700 transition-colors inline-block"
+            >
+              Begin Your Journey
+            </Link>
+          </div>
+        </div>
+      </footer>
     </div>
   );
 }
+
